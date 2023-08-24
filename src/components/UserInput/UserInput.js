@@ -25,7 +25,7 @@ const UserInput = (props) => {
     setUserInput((previousInput) => {
       return {
         ...previousInput,
-        [inputIdentifier]: value,
+        [inputIdentifier]: +value,
       };
     });
   };
