@@ -1,17 +1,32 @@
+import { useState } from 'react';
 import './UserInput.css';
 
+const initialUserInput = {
+  'current-savings': 10000,
+  'yearly-contribution': 1200,
+  'expected-return': 7,
+  duration: 10,
+};
+
 const UserInput = () => {
+  const [userInput, setUserInput] = useState(initialUserInput);
+
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log('submit');
+    console.log('userInput:: ', userInput);
   };
 
   const resetHandler = () => {
-    console.log('reset');
+    setUserInput(initialUserInput);
   };
 
   const inputChangeHandler = (inputIdentifier, value) => {
-    console.log(inputIdentifier, value);
+    setUserInput((previousInput) => {
+      return {
+        ...previousInput,
+        [inputIdentifier]: value,
+      };
+    });
   };
 
   return (
@@ -22,6 +37,7 @@ const UserInput = () => {
           <input
             type='number'
             id='current-savings'
+            value={userInput['current-savings']}
             onChange={(e) =>
               inputChangeHandler('current-savings', e.target.value)
             }
@@ -32,8 +48,9 @@ const UserInput = () => {
           <input
             type='number'
             id='yearly-contribution'
+            value={userInput['yearly-contribution']}
             onChange={(e) =>
-              inputChangeHandler('yearly-savings', e.target.value)
+              inputChangeHandler('yearly-contribution', e.target.value)
             }
           />
         </p>
@@ -46,6 +63,7 @@ const UserInput = () => {
           <input
             type='number'
             id='expected-return'
+            value={userInput['expected-return']}
             onChange={(e) =>
               inputChangeHandler('expected-return', e.target.value)
             }
@@ -56,6 +74,7 @@ const UserInput = () => {
           <input
             type='number'
             id='duration'
+            value={userInput['duration']}
             onChange={(e) => inputChangeHandler('duration', e.target.value)}
           />
         </p>
